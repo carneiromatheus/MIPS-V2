@@ -40,8 +40,7 @@ public class FileHandler {
       String line;
 
       while ((line = br.readLine()) != null) {
-        List<String> instruction = new ArrayList<>(Arrays.asList(line.split("[,\\s()]+")));
-        instructions.add(new ArrayList<>(instruction));
+        instructions.add(new ArrayList<>(Arrays.asList(line.split("[,\\s()]+"))));
       }
     } catch (IOException e) {
       throw new IOException("Failed to read the file " + e.getMessage());
