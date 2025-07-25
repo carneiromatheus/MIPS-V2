@@ -8,13 +8,21 @@ public class FileHandler {
   private FileHandler() {
   }
 
-  public static File[] listFiles(String directoryPath) {
+  public static File[] listFiles(String directoryPath, String filenamePattern) {
     File directory = new File(directoryPath);
+
     if (!directory.exists() || !directory.isDirectory()) {
       throw new IllegalArgumentException("Invalid directory path " + directoryPath);
     }
 
-    return directory.listFiles();
+    File[] files = directory
+        .listFiles((dir, filename) -> filename.matches(filenamePattern) && new File(dir, filename).isFile());
+
+    if (files == null || files.length == 0) {
+      throw new IllegalStateException("No matching files found in directory " + directoryPath);
+    }
+
+    return files;
   }
 
   public static void read(String filePath) throws IOException {
