@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,5 +49,16 @@ public class FileHandler {
     }
 
     return instructions;
+  }
+
+  public static void write(String filePath, String content) {
+    File file = new File(filePath);
+    file.getParentFile().mkdirs();
+
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+      bw.write(content);
+    } catch (IOException e) {
+      throw new RuntimeException("Failed to write to the file " + e.getMessage(), e);
+    }
   }
 }
