@@ -14,27 +14,28 @@ public class App {
       File[] files = FileHandler.listFiles(path, filenamePattern);
 
       for (File file : files) {
+        System.out.println("File found:" + file.getName());
+        int cycles = 0;
+
         if (file.isFile()) {
           List<ArrayList<String>> instructions = FileHandler.read(file.getAbsolutePath());
-          System.out.println(file.getName() + " instructions:" + instructions);
+          int bubbles = ConflictHandler.check(instructions);
 
-          // EXPLAIN: Estamos pegando as instruções do arquivo e armazenando em uma Matriz
-
-          // Exemplo: TESTE-01.txt
-          // [
-          //   [lw, $t0, 1200, $t1],
-          //   [add, $t0, $s2, $t0],
-          //   [sw, $t0, 1200, $t1]
-          // ]
-
-          // Processar as instruções de acordo com o opcode
-          // ...
-
-          // FIX: Limpar comentários acima
-
+          cycles += instructions.size() + bubbles + 4;
         } else {
           System.err.println("\u001B[31mFailed to read " + file.getName() + ": is not a file.\u001B[0m");
         }
+
+        System.out.println("Total de ciclos: " + cycles);
+
+        String filePath = new File(file.getParentFile(),
+            "Augusto e Matheus Carneiro"
+                + File.separator
+                + file.getName().replace(".txt", "-RESPOSTA.txt"))
+            .getPath();
+
+        FileHandler.write(filePath, String.valueOf(cycles));
+        System.out.println("Writing output to: " + filePath);
       }
     } catch (Exception e) {
       System.err.println("\u001B[31mError: " + e.getMessage() + "\u001B[0m");
