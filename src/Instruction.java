@@ -19,7 +19,16 @@ public class Instruction {
                 $rt = (registers.get(0)); //Setando registrador 1 como write
                 $rs1 = (registers.get(1)); //Setando registrador 2 e 3 como read
                 break;
-            default:
+            case "sw", "sb", "sh", "swl", "swr":
+                $rs1 = registers.get(0);
+                $rs2 = registers.get(1);
+            case "bgez", "bltz", "blez", "bgtz", "jr":
+                $rs1 = registers.get(0);
+            case "j":
+                $rt = null;
+                $rs1 = null;
+                $rs2 = null;
+                default:
                 throw new NullPointerException("Unacknowledged instruction: "+instructionType);
         }
 
