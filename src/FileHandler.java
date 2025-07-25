@@ -2,6 +2,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class FileHandler {
 
@@ -25,15 +28,25 @@ public class FileHandler {
     return files;
   }
 
-  public static void read(String filePath) throws IOException {
-    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+  public static List<ArrayList<String>> read(String filePath) throws IOException {
+    File file = new File(filePath);
+    List<ArrayList<String>> instructions = new ArrayList<>();
+
+    if (!file.canRead()) {
+      throw new IOException("Cannot read file " + file.getName());
+    }
+
+    try (BufferedReader br = new BufferedReader(new FileReader(file))) {
       String line;
 
       while ((line = br.readLine()) != null) {
-        System.out.println(line);
+        List<String> instruction = new ArrayList<>(Arrays.asList(line.split("[,\\s()]+")));
+        instructions.add(new ArrayList<>(instruction));
       }
     } catch (IOException e) {
-      throw new IOException("Error reading file " + e.getMessage());
+      throw new IOException("Failed to read the file " + e.getMessage());
     }
+
+    return instructions;
   }
 }

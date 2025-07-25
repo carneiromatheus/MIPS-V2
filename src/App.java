@@ -1,5 +1,6 @@
 import java.io.File;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
@@ -10,14 +11,29 @@ public class App {
     String filenamePattern = "TESTE-\\d{2}\\.txt";
 
     try {
-      for (File file : FileHandler.listFiles(path, filenamePattern)) {
+      File[] files = FileHandler.listFiles(path, filenamePattern);
+
+      for (File file : files) {
         if (file.isFile()) {
-          try {
-            System.out.println("Reading file " + file.getName());
-            FileHandler.read(file.getAbsolutePath());
-          } catch (IOException e) {
-            System.err.println(e.getMessage());
-          }
+          List<ArrayList<String>> instructions = FileHandler.read(file.getAbsolutePath());
+          System.out.println(file.getName() + " instructions:" + instructions);
+
+          // EXPLAIN: Estamos pegando as instruções do arquivo e armazenando em uma Matriz
+
+          // Exemplo: TESTE-01.txt
+          // [
+          //   [lw, $t0, 1200, $t1],
+          //   [add, $t0, $s2, $t0],
+          //   [sw, $t0, 1200, $t1]
+          // ]
+
+          // Processar as instruções de acordo com o opcode
+          // ...
+
+          // FIX: Limpar comentários acima
+
+        } else {
+          System.err.println("\u001B[31mFailed to read " + file.getName() + ": is not a file.\u001B[0m");
         }
       }
     } catch (Exception e) {
