@@ -7,7 +7,7 @@ public class App {
   public static void main(String[] args) {
     Scanner sc = new Scanner(System.in);
     System.out.print("Informe o caminho do diretório dos arquivos TESTES-XX.txt: ");
-    String path = sc.nextLine();
+    String path = sc.nextLine().trim();
     String filenamePattern = "TESTE-\\d{2}\\.txt";
 
     try {
