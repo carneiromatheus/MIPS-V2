@@ -4,33 +4,62 @@ public class Instruction {
     private String $rt; //register stored
     private String $rs1; //register read 1
     private String $rs2; //register read 2
-    public Instruction(String instructionType, ArrayList<String> registers) {
-        setInstructionType(instructionType, registers);
+    public Instruction(String[] line) {
+        setInstructionType(line);
     }
 
-    public void setInstructionType(String instructionType, ArrayList<String> registers) {
-        switch (instructionType) {
+    private void setInstructionType(String[] line) {
+        switch (line[0]) {
             case "add", "addu", "sub", "subu", "and", "or", "nor", "slt", "sltu" :
-                $rt = (registers.get(0)); //Setando registrador 1 como write
-                $rs1 = (registers.get(1)); //Setando registrador 2 como read
-                $rs2 = (registers.get(2)); //Setando registrador 3 como read
+                $rt = (line[1]); //Setando registrador 1 como write
+                $rs1 = (line[2]); //Setando registrador 2 como read
+                $rs2 = (line[3]); //Setando registrador 3 como read
                 break;
             case "addi", "addiu", "subi", "andi", "ori", "xori", "slti", "sltiu", "lw", "lb", "lbu", "lh", "lhu", "lwl", "lwr":
-                $rt = (registers.get(0)); //Setando registrador 1 como write
-                $rs1 = (registers.get(1)); //Setando registrador 2 e 3 como read
+                $rt = (line[1]); //Setando registrador 1 como write
+                $rs1 = (line[2]); //Setando registrador 2 e 3 como read
                 break;
             case "sw", "sb", "sh", "swl", "swr":
-                $rs1 = registers.get(0);
-                $rs2 = registers.get(1);
+                $rs1 = line[1];
+                $rs2 = line[3];
+                break;
             case "bgez", "bltz", "blez", "bgtz", "jr":
-                $rs1 = registers.get(0);
+                $rs1 = line[1];
+                break;
             case "j":
                 $rt = null;
                 $rs1 = null;
                 $rs2 = null;
+                break;
                 default:
-                throw new NullPointerException("Unacknowledged instruction: "+instructionType);
+                throw new NullPointerException("UNACKNOWLEGED INSTRUCTION: "+line[0]);
         }
+    }
+    private boolean isRegister(String register) {
+        if(register == null) return false;
+        else return true;
+    }
 
+
+    public String[] getRead(){ 
+        if(isRegister($rs1)&& isRegister($rs2)) {
+            String[] readRegisters = {$rs1, $rs2};
+            return readRegisters;
+        }  
+        else if(isRegister($rs1)) {
+            String[] readRegisters = {$rs1};
+            return readRegisters;
+        }
+        else if (isRegister($rs2)){
+            String[] readRegisters = {$rs2};
+            return readRegisters;
+        }
+        else{
+            throw new NullPointerException("UNEXPECTED_REGISTER_NOT_FOUND");
+        }
+    }
+    public String getWrite(){
+        if($rt != null) return $rt;
+        else return null; 
     }
 }

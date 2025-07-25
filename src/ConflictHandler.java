@@ -1,25 +1,30 @@
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
 
 public class ConflictHandler {
-    public static ArrayList<String> getRegisters(String instruction) throws NullPointerException{
-        final String regex =  """
-            \\$(?<register>
-              zero|at|v[01]|a[0-3]|t[0-9]|s[0-7]|
-              k[01]|gp|sp|fp|ra|pc|hi|lo
-            )\\b
-            """;
-        if(instruction == null  || instruction.isEmpty()) throw new NullPointerException("The instruction cannot be null!");
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(instruction);
-        ArrayList<String> registers = new ArrayList<>();
-        while (matcher.find()) {
-            registers.add(matcher.group());
+    private ConflictHandler(){
+
+    }
+
+    public static void clockCicles(List<Instruction> instructions) { //Retirar o retorno void
+        for(int i = 0; i < instructions.size(); i++){
+            if(isConflict(instructions.get(i), instructions.get(i+1))) {
+                System.out.printf("Conflito da instrução %d com %d %n",i,i+1);
+            }
+            if(isConflict(instructions.get(i), instructions.get(i+2))) {
+                System.out.printf("Conflito da instrução %d com %d %n",i,i+2);
+            }
+            
         }
-        if(registers.isEmpty()) {
-            throw new NullPointerException("This instruction does not have any register!");
-        }
-        return registers;
+        
+        //return clockCicles;
+    }
+
+    private static boolean isConflict(Instruction I1, Instruction I2){
+        if(I1.getWrite() == null)return false;
+        else 
+            if(I1.getWrite().equals(I2.getRead()[0])|| I1.getWrite().equals(I2.getRead()[1])) return true;
+            else return false; 
+        
     }
 }
