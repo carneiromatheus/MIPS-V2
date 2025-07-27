@@ -1,7 +1,11 @@
+package view;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import controller.ConflictHandler;
+import controller.FileHandler;
+import model.Instruction;
 
 public class App {
   public static void main(String[] args) {
@@ -25,8 +29,8 @@ public class App {
           //cycles2 = getCycles2;
 
 
-          int bubbles = ConflictHandler.check(instructions);
-          cycles += instructions.size() + bubbles + 4;
+          cycles = ConflictHandler.readInstructions(instructions).size();
+          //cycles += instructions.size() + bubbles + 4;
         } else {
           System.err.println("\u001B[31mFailed to read " + file.getName() + ": is not a file.\u001B[0m");
         }
