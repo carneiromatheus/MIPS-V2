@@ -26,12 +26,12 @@ public class Instruction {
 
     private void setInstructionType(String[] line) {
         switch (opcode) {
-            case "add", "addu", "sub", "subu", "and", "or", "nor", "slt", "sltu" : //Case: I $rt, $rs, $rs
+            case "add", "addu", "sub", "subu", "and", "or", "nor", "slt", "sltu","xor" : //Case: I $rt, $rs, $rs
                 $rt = line[1]; 
                 $rs[0] = line[2]; 
                 $rs[1]= line[3]; 
                 break;
-            case "addi", "addiu", "subi", "andi", "ori", "xori", "slti", "sltiu", "sll": //Case: I $rt, $rs, immediate
+            case "addi", "addiu", "subi", "andi", "ori", "xori", "slti", "sltiu", "sll", "slr", "lui": //Case: I $rt, $rs, immediate
                 $rt = line[1]; 
                 $rs[0] = line[2]; 
                 $rs[1] = null;
