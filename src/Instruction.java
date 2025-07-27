@@ -1,36 +1,75 @@
 import java.util.ArrayList;
 
 public class Instruction {
-    private String $rt; //register stored
-    private String $rs1; //register read 1
-    private String $rs2; //register read 2
-    public Instruction(String instructionType, ArrayList<String> registers) {
-        setInstructionType(instructionType, registers);
+    private String opcode;
+    private String $rt; 
+    private String $rs[];
+    public Instruction(String[] line) {
+        this.$rs = new String[2];
+        this.opcode = line[0]; 
+        setInstructionType(line);
     }
 
-    public void setInstructionType(String instructionType, ArrayList<String> registers) {
-        switch (instructionType) {
-            case "add", "addu", "sub", "subu", "and", "or", "nor", "slt", "sltu" :
-                $rt = (registers.get(0)); //Setando registrador 1 como write
-                $rs1 = (registers.get(1)); //Setando registrador 2 como read
-                $rs2 = (registers.get(2)); //Setando registrador 3 como read
+    private void setInstructionType(String[] line) {
+        switch (opcode) {
+            case "add", "addu", "sub", "subu", "and", "or", "nor", "slt", "sltu" : //Case: write, read, read 
+                $rt = line[1]; 
+                $rs[0] = line[2]; 
+                $rs[1]= line[3]; 
                 break;
-            case "addi", "addiu", "subi", "andi", "ori", "xori", "slti", "sltiu", "lw", "lb", "lbu", "lh", "lhu", "lwl", "lwr":
-                $rt = (registers.get(0)); //Setando registrador 1 como write
-                $rs1 = (registers.get(1)); //Setando registrador 2 e 3 como read
+            case "addi", "addiu", "subi", "andi", "ori", "xori", "slti", "sltiu", "lb", "lbu", "lh", "lhu", "lwl", "lwr": //Case: write, read
+                $rt = line[1]; 
+                $rs[0] = line[2]; 
+                $rs[1] = null;
                 break;
-            case "sw", "sb", "sh", "swl", "swr":
-                $rs1 = registers.get(0);
-                $rs2 = registers.get(1);
-            case "bgez", "bltz", "blez", "bgtz", "jr":
-                $rs1 = registers.get(0);
-            case "j":
+            case "sw", "sb", "sh", "swl", "swr": //Case: read, read
                 $rt = null;
-                $rs1 = null;
-                $rs2 = null;
-                default:
-                throw new NullPointerException("Unacknowledged instruction: "+instructionType);
+                $rs[0] = line[1];
+                $rs[1] = line[3];
+                break;
+            case "lw":
+                $rt = line[1];
+                $rs[0] = line[3];
+                $rs[1] = null;
+                break;    
+            case "bgez", "bltz", "blez", "bgtz", "jr", "bnez": //Case: read
+                $rt = null;
+                $rs[0] = line[1];
+                $rs[1] = null;
+                break;
+            case "j": //Case n/a
+                $rt = null;
+                $rs[0] = null;
+                $rs[1] = null;
+                break;
+            case "beq": //Case read, read no imeddiate
+                $rt = null;
+                $rs[0] = line[1];
+                $rs[1] = line[2];
+                break;
+            default:
+                throw new NullPointerException("UNACKNOWLEGED INSTRUCTION: "+opcode);
         }
-
     }
+    
+    public String[] getRead(){ 
+        return $rs;
+    }
+
+    public String getWrite(){
+        if($rt != null) return $rt;
+        else return null; 
+    }
+
+    public String getOpcode(){
+        return opcode;
+    }
+    @Override 
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Instruction " + opcode + " ").append("Register write: ").append($rt).append(" Register read: ").append($rs[0]).append(", " + $rs[1]);
+        return sb.toString();
+    }
+
 }
+

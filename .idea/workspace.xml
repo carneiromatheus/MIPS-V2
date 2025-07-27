@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f6507d00-4a0a-4189-b813-d405bb1f1037" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/diagrams/conflict_handler.xopp" beforeDir="false" afterPath="$PROJECT_DIR$/diagrams/conflict_handler.xopp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MIPS-V2/App.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MIPS-V2/ConflictHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MIPS-V2/FileHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/MIPS-V2/testRegexInstruction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ConflictHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ConflictHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Instruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Instruction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testRegexInstruction.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="30LTXSMFsEap0SkimSkMjvoa0ga" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.testRegexInstruction.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "feat/clockCicles",
+    "last_opened_file_path": "/home/augusto-henrique/Documents/Estudos/BSI/2025_03/ARQUITETURA DE COMPUTADORES/mips-decoder",
+    "settings.editor.selected.configurable": "preferences.keymap"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="testRegexInstruction" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="testRegexInstruction" />
+      <module name="MIPS-V2" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.testRegexInstruction" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f6507d00-4a0a-4189-b813-d405bb1f1037" name="Changes" comment="" />
+      <created>1753405893434</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1753405893434</updated>
+    </task>
+    <servers />
+  </component>
+</project>

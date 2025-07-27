@@ -16,16 +16,22 @@ public class App {
       for (File file : files) {
         System.out.println("File found:" + file.getName());
         int cycles = 0;
+        //int cycles1 = 0;
 
         if (file.isFile()) {
-          List<ArrayList<String>> instructions = FileHandler.read(file.getAbsolutePath());
-          int bubbles = ConflictHandler.check(instructions);
+          List<Instruction> instructions = FileHandler.read(file.getAbsolutePath());
+          
+          //cycles1 = getCycles1;
+          //cycles2 = getCycles2;
 
+
+          int bubbles = ConflictHandler.check(instructions);
           cycles += instructions.size() + bubbles + 4;
         } else {
           System.err.println("\u001B[31mFailed to read " + file.getName() + ": is not a file.\u001B[0m");
         }
-
+        //System.out.println("Total de ciclos sem adiantamento de dados: "+ cycles1);
+        //System.out.println("Total de ciclos com adiantamento de dados: "+ cycles2);
         System.out.println("Total de ciclos: " + cycles);
 
         String filePath = new File(file.getParentFile(),

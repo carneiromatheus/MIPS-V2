@@ -30,9 +30,9 @@ public class FileHandler {
     return files;
   }
 
-  public static List<ArrayList<String>> read(String filePath) throws IOException {
+  public static List<Instruction> read(String filePath) throws IOException {
     File file = new File(filePath);
-    List<ArrayList<String>> instructions = new ArrayList<>();
+    List<Instruction> instructions = new ArrayList<>();
 
     if (!file.canRead()) {
       throw new IOException("Cannot read file " + file.getName());
@@ -42,7 +42,7 @@ public class FileHandler {
       String line;
 
       while ((line = br.readLine()) != null) {
-        instructions.add(new ArrayList<>(Arrays.asList(line.split("[,\\s()]+"))));
+        instructions.add(new Instruction((line.split("[,\\s()]+"))));
       }
     } catch (IOException e) {
       throw new IOException("Failed to read the file " + e.getMessage());
