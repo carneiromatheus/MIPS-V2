@@ -18,53 +18,57 @@ public class Instruction {
     }
     public Instruction() {
         this.opcode = "NOP";
+        this.$rs = new String[2];
+        this.$rt = null;
+        this.accesMemory = false;
+        this.conditionalDeviation = false; 
     }
 
     private void setInstructionType(String[] line) {
         switch (opcode) {
-            case "add", "addu", "sub", "subu", "and", "or", "nor", "slt", "sltu" : //Case: write, read, read 
+            case "add", "addu", "sub", "subu", "and", "or", "nor", "slt", "sltu" : //Case: I $rt, $rs, $rs
                 $rt = line[1]; 
                 $rs[0] = line[2]; 
                 $rs[1]= line[3]; 
                 break;
-            case "addi", "addiu", "subi", "andi", "ori", "xori", "slti", "sltiu": //Case: write, read
+            case "addi", "addiu", "subi", "andi", "ori", "xori", "slti", "sltiu", "sll": //Case: I $rt, $rs, immediate
                 $rt = line[1]; 
                 $rs[0] = line[2]; 
                 $rs[1] = null;
                 break;
-            case "sw", "sb", "sh", "swl", "swr": //Case: read, read
+            case "sw", "sb", "sh", "swl", "swr": //I $rs, immediate($rs)
                 $rt = null;
                 $rs[0] = line[1];
                 $rs[1] = line[3];
                 break;
-            case "lw", "lh", "lhu", "lb", "lbu", "lwl", "lwr":
+            case "lw", "lh", "lhu", "lb", "lbu", "lwl", "lwr": //I $rt, immediate($rs)
                 $rt = line[1];
                 $rs[0] = line[3];
                 $rs[1] = null;
                 accesMemory = true;
                 break;    
-            case "bgez", "bltz", "blez", "bgtz", "jr", "bnez","beqz": //Case: read
+            case "bgez", "bltz", "blez", "bgtz", "bnez","beqz": //I $rs, immediate
                 $rt = null;
                 $rs[0] = line[1];
                 $rs[1] = null;
                 conditionalDeviation = true;
                 break;
-            case "j": //Case n/a
+            case "j": //I, immediate
                 $rt = null;
                 $rs[0] = null;
                 $rs[1] = null;
                 break;
-            case "beq", "bne", "blt", "bge": //Case read, read no imeddiate
+            case "jr": //I, $rs
+                $rt = null;
+                $rs[0] = line[1];
+                $rs[1] = null;
+                break;
+            case "beq", "bne", "blt", "bge": //I $rs, $rs
                 $rt = null;
                 $rs[0] = line[1];
                 $rs[1] = line[2];
                 conditionalDeviation = true;
                 break;
-            /*case "NOP":
-                $rt = null;
-                $rs[0] = null;
-                $rs[1] = null;
-                break;*/
             default:
                 throw new NullPointerException("UNACKNOWLEGED INSTRUCTION: "+opcode);
         }
@@ -96,8 +100,7 @@ public class Instruction {
     @Override 
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        if(!opcode.equals("NOP")) sb.append(opcode + " ").append("rw: ").append($rt).append(" rr: ").append($rs[0]).append(", " + $rs[1]);
-        else sb.append(opcode);
+        sb.append(opcode + " ").append("rw: ").append($rt).append(" rr: ").append($rs[0]).append(", " + $rs[1]);
         return sb.toString();
     }
 
